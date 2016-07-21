@@ -1,0 +1,45 @@
+<html>
+<head>
+<title>Ref-o-Matic</title>
+
+<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+<script src="easy-autocomplete/EasyAutocomplete-1.3.4/dist/jquery.easy-autocomplete.min.js"></script>
+<link rel="stylesheet" href="easy-autocomplete/EasyAutocomplete-1.3.4/dist/easy-autocomplete.min.css"> 
+
+<script>
+$(function() {
+	$( "#journal" ).easyAutocomplete({
+		url: function(phrase) { return ( 'http://ref.sherpa.ac.uk/search/journal/' + phrase );  },
+		ajaxSettings: {
+			dataType: "jsonp"
+		},
+
+		getValue: 'string',
+		list: {
+			maxNumberOfElements: 15, 
+			onChooseEvent: function(){
+				$("#issn").val($("#journal").getSelectedItemData().issn);
+			}
+		}
+	});
+});
+</script>
+
+
+</head>
+<body>
+<h1>Enter the REF!</h1>
+
+<form action='result.php'>
+<label for='journal'>Journal Name or ISSN</label>
+<input type="text" placeholder="(Enter your journal name or ISSN and select from the list)" name="journal" id="journal" size=100 />
+<input type="hidden" id="issn" name='issn' value='none'/>
+<button type="submit">Check</button>
+
+</form>
+              
+</body>
+</html>
+
+
+
